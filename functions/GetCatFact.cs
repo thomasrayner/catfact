@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -18,7 +19,9 @@ namespace ThmsRynr.CatFact
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("GetCatFact");
-            logger.LogInformation("C# HTTP trigger function processed a request.");
+            bool hasAgent = req.Headers.TryGetValues("User-Agent", out IEnumerable<string> agent);
+            string agentString = hasAgent ? string.Join(' ', agent) : "No agent";
+            logger.LogInformation($"GetCatFact API triggered. User Agent: {agentString}");
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
