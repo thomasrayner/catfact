@@ -15,6 +15,9 @@ namespace ThmsRynr.CatFact
                 })
                 .Build();
 
+            // init service before the first call
+            host.Services.GetService<ICatFactService>();
+
             host.Run();
         }
     }

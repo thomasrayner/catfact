@@ -19,9 +19,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <Content Include="facts.txt">
+    <Content Include="facts/facts.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>facts.txt</TargetPath>
     </Content>
   </ItemGroup>
 </Project>

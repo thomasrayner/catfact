@@ -5,12 +5,6 @@ using System;
 
 namespace ThmsRynr.CatFact
 {
-    public interface ICatFactService
-    {
-        public List<string> Facts { get; set; }
-        public string GetFact();
-    }
-
     public class CatFactService : ICatFactService
     {
         public List<string> Facts { get; set; }
@@ -24,7 +18,7 @@ namespace ThmsRynr.CatFact
             }
             catch (FileNotFoundException)
             {
-                Facts = new List<string>() { "Didn't find any facts when we loaded up. Sorry about that." };
+                Facts = new List<string>() { "I couldn't find any facts when I loaded up. Sorry about that." };
             }
         }
 
