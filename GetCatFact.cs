@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -6,16 +5,16 @@ using Microsoft.Extensions.Logging;
 
 namespace ThmsRynr.CatFact
 {
-    public static class GetCatFact
+    public class GetCatFact
     {
-        public static CatFacts Facts { get; set; }
-        static GetCatFact()
+        private readonly ICatFactService _catFactService;
+        public GetCatFact(ICatFactService catFactService)
         {
-            Facts = new CatFacts();
+            this._catFactService = catFactService;
         }
 
         [Function("GetCatFact")]
-        public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req,
+        public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req,
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("GetCatFact");
@@ -24,7 +23,7 @@ namespace ThmsRynr.CatFact
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
 
-            response.WriteString(Facts.GetFact());
+            response.WriteString(_catFactService.GetFact());
 
             return response;
         }
