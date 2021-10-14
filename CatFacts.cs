@@ -1,7 +1,3 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Azure.Functions.Worker.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -9,11 +5,17 @@ using System;
 
 namespace ThmsRynr.CatFact
 {
-    public class CatFacts
+    public interface ICatFactService
+    {
+        public List<string> Facts { get; set; }
+        public string GetFact();
+    }
+
+    public class CatFactService : ICatFactService
     {
         public List<string> Facts { get; set; }
 
-        public CatFacts()
+        public CatFactService()
         {
             try
             {

@@ -1,11 +1,5 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Azure.Functions.Worker.Configuration;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System;
 
 namespace ThmsRynr.CatFact
 {
@@ -15,6 +9,10 @@ namespace ThmsRynr.CatFact
         {
             var host = new HostBuilder()
                 .ConfigureFunctionsWorkerDefaults()
+                .ConfigureServices(s =>
+                {
+                    s.AddSingleton<ICatFactService, CatFactService>();
+                })
                 .Build();
 
             host.Run();
