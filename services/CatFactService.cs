@@ -8,6 +8,7 @@ namespace ThmsRynr.CatFact
     public class CatFactService : ICatFactService
     {
         public List<string> Facts { get; set; }
+        private Random _random = new Random();
 
         public CatFactService()
         {
@@ -24,8 +25,7 @@ namespace ThmsRynr.CatFact
 
         public string GetFact()
         {
-            var r = new Random();
-            var fact = Facts[r.Next(0, Facts.Count)];
+            var fact = Facts[_random.Next(0, Facts.Count)];
             return fact;
         }
     }
